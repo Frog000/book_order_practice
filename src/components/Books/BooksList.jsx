@@ -56,13 +56,14 @@ const BooksList = () => {
     const booksList = books.map(book => 
         <Book 
             key={book.id}
+            id={book.id}
             name={book.name}
             description={book.description}
             price={book.price}
             author={book.author}
         />
     )
-    console.log(booksList);
+    // console.log(booksList);
 
   return (
     <section className={classes.books}>
