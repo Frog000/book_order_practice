@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Modal from '../Commons/Modal'
 import classes from './Cart.module.css'
 import CartItem from './CartItem'
 import Button from '../Commons/Button'
+import CartContext from '../../store/CartContext'
 
 const BOOKS = [
   {
@@ -25,23 +26,32 @@ const BOOKS = [
 
 const Cart = (props) => {
 
+  // 1. Context 적용 전.
   const [books, setBooks] = useState(BOOKS);
+
+  // 2. Context 적용 후.
+  const cartContext = useContext(CartContext);
+  console.log(cartContext);
 
   const cartItems = (
     <ul className={classes['cart-items']}>
-      {books.map((book) => (
-        <CartItem 
+      {cartContext.items.map((book) => (
+        <CartItem
+          key={book.id}
           name={book.name}
-          price={book.price}  
+          price={book.price}
+          amount={book.amount}
         />
       ))}
     </ul>
   );
 
+  const totalAmount = `$${cartContext.totalAmount}`;
+
   const cartItemsTotal = (
     <div className={classes.total}>
       <span>Total Amount</span>
-      <span>{55.24}</span>
+      <span>{totalAmount}</span>
     </div>
   );
 
